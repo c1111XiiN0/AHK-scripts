@@ -6,7 +6,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 #singleInstance Force
 
-#MaxHotkeysPerInterval 110
+#MaxHotkeysPerInterval 300
 
 #IfWinActive ahk_class Respawn001
 !f4::tooltip, fucking ragequiter
@@ -14,18 +14,18 @@ return
 
 
 #IfWinActive ahk_class Chrome_WidgetWin_1
-^+right::send, ^{tab}
-^+left::send, ^+{tab}
+^+f1::send, ^{tab}
+^+f2::send, ^+{tab}
 return
 
 #IfWinActive ahk_class gdkWindowToplevel
-^+right::send, ^+{tab}
-^+left::send, ^{tab}
+^+f1::send, ^+{tab}
+^+f2::send, ^{tab}
 return
 
 ;#IfWinExist AHK_Class Progman
 ;^+n::
-;tooltip, Got em
+;tooltip, i know what cha doin there
 ;send, ^+n
 ;return
 
@@ -34,7 +34,7 @@ Numpad9::send, {up}{space}{up}{space}{up}{space}{up}{space}{up}{space}{up}{space
 
 #IfWinActive AHK_class Chrome_WidgetWin_1
 ^+h::
-	send, {tab 3} 
+	send, {tab 4} 
 	sleep 400
 	send, {space}
 	sleep 750
@@ -58,35 +58,40 @@ return
 	sleep 250
 	send, {enter}
 	sleep 1600
-	send, {tab 4}
+	send, {tab 6}
 	sleep 500
 	send, {space}
 	sleep 1500
-	send, {tab 3} {space}
+	send, {tab 3} 
+	send, {space}
 	sleep 450
-	send, {tab 2} {space}
+	send, {tab 2} 
+	send, {space}
 	sleep 450
-	send, {tab 3} {space}
+	send, {tab 3} 
+	send, {space}
 	sleep 450
-	send, {tab 5} {space}
+	send, {tab 5} 
+	send, {space}
 	sleep 500
 	send, ^t
-	sleep 100
-	send, ^+{tab}
 	sleep 250
-	send, ^w
-	sleep 100
-	send, ^v 
+	send, ^v
 	sleep 100
 	send, {enter}
+	sleep 100
+	send, <^+{tab}
+	sleep 100
+	send, ^w
+
 return
 
 
 
 
-;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+;------------------------------------------------------------------------------------------------------------------
 ;AHK Thingies for ma Graphic Tablet (start)
-;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+;------------------------------------------------------------------------------------------------------------------
 
 #IfWinActive ahk_class gdkWindowToplevel
 left::send, [
@@ -100,9 +105,9 @@ send, ^v
 send, m
 return
 
-;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-;AHK Thingies for ma Graphic Tablet (end)
-;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+;------------------------------------------------------------------------------------------------------------------;AHK Thingies for ma Graphic Tablet (end)
+;
+;------------------------------------------------------------------------------------------------------------------
 
 #IfWinExist ahk_class Progman
 >+WheelUp::send, {wheelup 25}
@@ -133,6 +138,7 @@ else
 	winactivate ahk_exe chrome.exe
 return
 
+
 #IfWinExist ahk_class Progman
 >^>+!F2::
 IfWinNotActive ("ahk_class gdkWindowToplevel")
@@ -153,29 +159,86 @@ return
 
 #IfWinExist ahk_class Progman
 RWin::
-	send, ^!{tab}
+	send, #{tab}
 return
 
 
+^Media_Play_Pause::
+	send, {Media_Stop}
+return
+
+
+^Volume_Mute::
+	run, "D:\Soundkarteneinstellungen ändern - Verknüpfung.lnk"
+return
+	
+	
+^Volume_Up::
+	run, "D:\Systemlautstärke anpassen - Verknüpfung.lnk"
+return
+
+
+^Volume_Down::
+	run, "D:\Systemlautstärke anpassen - Verknüpfung.lnk"
+return
+
+
+#IfWinExist ahk_class Progman
+F9::
+IfWinNotActive, ahk_class ConsoleWindowClass
+	winactivate, ahk_class ConsoleWindowClass
+GroupAdd, CMD, ahk_class ConsoleWindowClass
+If winActive("ahk_class ConsoleWindowClass")
+	GroupActivate, cmd, r
+else
+	run, "C:\Users\maxme\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\System Tools\Command Prompt.lnk"
+return
+
+
+^+LButton::
+	send, {LButton 100}
+return
+
+#MaxThreadsPerHotkey 3
+
+^+!LButton::
+Toggle := !Toggle
+Loop
+{
+	If (!Toggle)
+		Break
+	Click
+	Sleep 83 ; Make this number higher for slower clicks, lower for faster.
+}
+Return
+
+
+;------------------------------------------------------------------------------------------------------------------;AHK Thingies for ma Graphic Tablet (end)
+;Debuger
+
+
+Home::
+	Reload
+return
+
+
+;------------------------------------------------------------------------------------------------------------------
 
 
 
 
-;#IfwinActive AHK_Class Chrome_WidgetWin_1
-;!space::
-;	send, {alt down}
-;	send, {alt up}
-;	send, +{tab}
-;	send, +{tab}
-;	sleep 100
-;	send, {space}
-;	sleep 250
-;	send, {tab}
-;	send, {tab}
-;	sleep 100
-;	send, {space}
-;return
 
-;numpad3::send, ^w
+
+
+
+
+
+
+
+
+
+
+
+
 
 
